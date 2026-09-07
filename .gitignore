@@ -39,8 +39,9 @@ temp.ipynb
 Thumbs.db
 __MACOSX/
 
-# ---- 个人工作笔记,不对外 ----
-PLAN.md
+# ---- 个人工作笔记,不对外(含 PLAN copy.md 等所有副本) ----
+PLAN*.md
+plan*.md
 
 # ---- 老师演示视频的截图 / 老师的流程图与课件拼图 ----
 costs tab.png
