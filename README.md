@@ -9,20 +9,8 @@
 
 ## 请求流程
 
-```
-                                    ┌─────────────────────────┐
-START → check_quota → classify → select_model → check_breaker → check_cost
-            │                                        │             │
-            │                                        │             ↓
-            │                                        │       select_adapter
-            │                                        │             ↓
-            │                                        │        call_model
-            │                                        │        ┌────┴────┐
-            │                                        │     成功│         │失败
-            └────────────────┬───────────────────────┘        │         ↓
-                             ↓                                │     fallback
-                          reject ───────────────────────────→ record → END
-```
+![part7 LangGraph 流程图](screenshots/part7_ruirui_mermaid.png)
+
 
 三条策略检查（配额 / 熔断 / 预算）任一不过就走 `reject`，但**仍然记录日志**——
 不记录的话看板上看不到拦截量。`call_model` 失败后走 `fallback` 降级到同 tier
