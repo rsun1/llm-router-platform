@@ -1,0 +1,51 @@
+# ---- 密钥,绝对不能提交 ----
+.env
+.env.*
+!.env.example
+
+# ---- 本地工具配置 ----
+.claude/
+.vscode/
+.idea/
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# ---- 运行时产物 ----
+data/
+logs/
+*.log
+
+# ---- 课件原件(老师提供,不对外发布) ----
+LLM_Project_all 2/
+*.zip
+*.tar.gz
+
+# ---- 课堂/答疑截图(可能含他人信息) ----
+teacher q&a*.png
+上课讲解.png
+
+# ---- 草稿 ----
+temp.ipynb
+*.tmp
+
+# ---- 系统文件 ----
+.DS_Store
+Thumbs.db
+__MACOSX/
+
+# ---- 个人工作笔记,不对外 ----
+PLAN.md
+
+# ---- 老师演示视频的截图 / 老师的流程图与课件拼图 ----
+costs tab.png
+user tab.png
+performance tab.png
+Screenshot *.png
+screenshots/part7_flow.png
+screenshots/接口统一.png
