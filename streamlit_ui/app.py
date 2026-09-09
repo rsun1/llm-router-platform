@@ -39,7 +39,7 @@ def sidebar():
         
         selected_page = st.radio(
             'Navigation',
-            ['Overview', 'Models','Performance','Users','Costs', 'Alerts', 'Logs']
+            ['User Requests','Overview', 'Models','Performance','Users','Costs', 'Alerts', 'Logs']
         )
         return selected_page 
     
@@ -239,10 +239,39 @@ def page_logs():
     level_style = {"INFO": st.info, "WARNING": st.warning, "ERROR": st.error}
     for log in log_entries:
         level_style[log["level"]](f"{log['time']} [{log['level']}] {log['component']} — {log['content']}  \nRequest ID: {log['request_id']}")
-    
+
+def page_playground():
+    st.header('User Requests')
+    st.text('Call FastAPI via python -m uvicorn llm_router_part5_deploy:app --reload --port 8080')
+    with st.form('User_Request'):
+        query_text = st.text_area('Your question')
+        user_tier = st.selectbox('User tier',['free','premium','enterprise'])
+        user_id = st.text_input('User ID')
+        submitted = st.form_submit_button('Submit')
+    if submitted:
+        sub_request = {
+            'query_text': query_text,
+            'user_tier':user_tier,
+            'user_id':user_id,
+        }
+        with st.spinner('Routing your request...'):
+            try:
+                res = requests.post('http://127.0.0.1:8080/route',json=sub_request, timeout=180)
+                if res.status_code == 200:
+                    result = res.json() 
+                    st.write(result)
+                else:
+                    st.error(f'Error: {res.status_code}, {res.text}')
+            except requests.exceptions.RequestException as e:
+                st.error(f'Failed to connect backend. Please start FastAPI first. Error: {e}')
+                return
+
+
 def main():
     page = sidebar()
-    if page == 'Overview':
+    if page == 'User Requests':
+        page_playground()
+    elif page == 'Overview':
         page_overview()
     elif page == 'Models':
         page_models()
