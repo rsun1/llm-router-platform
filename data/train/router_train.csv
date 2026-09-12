@@ -1,0 +1,201 @@
+query,label,is_boundary
+What are some good weekend trips within three hours of Boston?,0,False
+Can you explain how the electoral college works?,0,False
+Who painted the ceiling of the Sistine Chapel?,0,False
+What's a good beginner camera for street photography?,0,False
+Why do cats purr?,0,False
+How do I get better at public speaking?,0,False
+What caused the fall of the Western Roman Empire?,0,False
+Is it better to run in the morning or in the evening?,0,False
+Recommend a few podcasts about behavioral economics.,0,False
+What's the difference between espresso and drip coffee?,0,False
+How long does it usually take to learn conversational Spanish?,0,False
+What should I look for when buying a used matress?,0,False
+Explain inflation to me like I'm twelve.,0,False
+Which countries have the longest average life expectancy?,0,False
+What are the main differences between Impressionism and Post-Impressionism?,0,False
+How much water should someone actually drink in a day?,0,False
+What's the story behind the Rosetta Stone?,0,False
+Any tips for keeping houseplants alive in a dark apartment?,0,False
+When did the Berlin Wall come down?,0,False
+What's the healthiest way to cook broccoli?,0,False
+Who won the World Cup in 1998?,0,False
+How do noise cancelling headphones work?,0,False
+What's a reasonable budget for a two week trip to Japan?,0,False
+Explain why the sky looks red at sunset.,0,False
+What are some strategies for falling asleep faster?,0,False
+Who wrote One Hundred Years of Solitude?,0,False
+Whats the difference between a cappuccino and a flat white?,0,False
+How did the Silk Road change trade across Asia?,0,False
+Is sourdough actually healthier than regular bread?,0,False
+What hobbies are good for people who sit at a desk all day?,0,False
+Tell me about the history of the Olympic marathon.,0,False
+How do I choose between a gas and an induction stove?,0,False
+What's the best way to memorize vocabulary in a new language?,0,False
+Why did the Concorde stop flying?,0,False
+Recommend a documentary about ocean life.,0,False
+When was the Voting Rights Act signed into law?,0,True
+What year did the Supreme Court decide Brown v Board of Education?,0,True
+Who was the first woman to serve on the Supreme Court?,0,True
+Where does the phrase innocent until proven guilty come from historically?,0,True
+How did the Magna Carta influence modern government?,0,True
+When did GDPR first take effect in Europe?,0,True
+Which president signed the Civil Rights Act?,0,True
+What were the Nuremberg trials and why are they famous?,0,True
+Explain what antitrust means in simple terms.,0,True
+How does the internet actually work at a high level?,0,True
+"What is machine learning, explained for a non technical person?",0,True
+Why do some websites load faster than others?,0,True
+What's the history of the QWERTY keyboard layout?,0,True
+Who invented the first computer mouse?,0,True
+Is a VPN worth paying for as a regular user?,0,True
+How do I write a recursive function to flatten a nested list in Python?,1,False
+What's the difference between a list comprehension and a generator expression?,1,False
+"My pytest fixtures aren't being picked up, what am I missing?",1,False
+Show me how to set up a FastAPI route that accepts a file upload.,1,False
+How do I add an index to a Postgres table without locking it?,1,False
+What's the cleanest way to handle retries when calling an external API?,1,False
+Why does my pandas merge produce more rows than I expect?,1,False
+How should I structure a Python project with multiple entry points?,1,False
+What's the difference between an INNER JOIN and a LEFT JOIN?,1,False
+I'm getting a ModuleNotFoundError even though the package is installed.,1,False
+How do I pin transitive dependencies with pip?,1,False
+Explain what a context manager does in Python.,1,False
+Write a SQL query that returns the top three products per category.,1,False
+How do I mock a network call in a unit test?,1,False
+What causes a circular import and how do I break it?,1,False
+Should I use a dataclass or a pydantic model for this config object?,1,False
+How do I make a Docker image smaller?,1,False
+"My git rebase left me with conflicts I don't understand, how do I back out?",1,False
+What's the right way to store timestamps in a database?,1,False
+How do I parallelize a loop that calls an API for each row?,1,False
+Explain the difference between a process and a thread.,1,False
+Why is my regex matching more than I want and how do I make it lazy?,1,False
+How do I read a very large CSV without loading it all into memory?,1,False
+What's the difference between HTTP PUT and PATCH?,1,False
+How do I set up logging so it writes to both a file and stdout?,1,False
+Whats the best way to hash passwords in a web app?,1,False
+How do I migrate a SQLite database over to Postgres?,1,False
+"My streamlit app reruns on every keystroke, how do I stop that?",1,False
+What does the property decorator actually do in Python?,1,False
+How can I profile which function is making my script slow?,1,False
+How do I write a GitHub Action that runs tests on every push?,1,False
+What's the difference between == and is in Python?,1,False
+How do I handle timezone aware datetimes in pandas?,1,False
+Explain how virtual environments isolate dependencies.,1,False
+Why does my for loop variable still exist after the loop ends in Python?,1,False
+Would you recommend poetry or pip-tools for managing dependencies?,1,True
+Is it worth switching our project from requirements.txt to pyproject.toml?,1,True
+"Which is better for our team, a monorepo or separate repos?",1,True
+Should we use Postgres or MongoDB for this kind of data?,1,True
+Is it a bad idea to keep secrets in environment variables?,1,True
+Do I really need type hints if the project is small?,1,True
+Is it worth adding integration tests if we already have unit tests?,1,True
+What's the downside of using an ORM instead of raw SQL?,1,True
+"Our API is slow, where should I even start looking?",1,True
+Should I cache this on the client or on the server?,1,True
+"I keep hitting a 500 error when I deploy but not locally, what changed?",1,True
+"Is it normal for a build to take eight minutes, or is something wrong?",1,True
+How do teams usually decide when to refactor versus rewrite?,1,True
+Do we need Kubernetes for an app with fifty users?,1,True
+Is it safe to upgrade to the new major version in the middle of a project?,1,True
+Is a verbal agreement enforceable for a freelance contract?,2,False
+What rights do tenants have when a landlord enters without notice?,2,False
+How long does copyright last after the creator dies?,2,False
+Can my employer require unpaid overtime in a salaried role?,2,False
+What counts as fair use when quoting a book in a review?,2,False
+Is this non compete clause enforceable in Massachusetts?,2,False
+What are the requirements for a will to be legally valid?,2,False
+Can I be fired for discussing my salary with coworkers?,2,False
+What is the difference between a trademark and a service mark?,2,False
+Do I need a patent attorney to file a provisional application?,2,False
+Is it legal to record a phone call without telling the other person?,2,False
+What obligations does an NDA impose after employment ends?,2,False
+Can a landlord keep a security deposit for normal wear and tear?,2,False
+What does work made for hire mean for a contractor's output?,2,False
+Are electronic signatures legally binding on a lease?,2,False
+What happens legally if someone dies without a will?,2,False
+Can a company legally change its terms of service retroactively?,2,False
+Is scraping a public website a copyright violation?,2,False
+What's the statute of limitations on a breach of contract claim?,2,False
+Do I have the right to request deletion of my data under GDPR?,2,False
+Is an unpaid internship legal if the company is for profit?,2,False
+What's the legal difference between an employee and a contractor?,2,False
+Can I use a competitor's trademark in comparative advertising?,2,False
+What liability do I have if a customer is injured on my property?,2,False
+Are clickwrap agreements enforceable in court?,2,False
+What are the legal requirements for terminating an employee in Germany?,2,False
+Can a minor legally enter into a binding contract?,2,False
+Does a patent filed in the US protect me in the EU as well?,2,False
+What's required for a prenuptial agreement to hold up in court?,2,False
+Is it legal for a store to refuse cash payment?,2,False
+What are passengers entitled to when a flight is cancelled in the EU?,2,False
+Can a homeowners association legally fine me over my lawn?,2,False
+What does indemnification mean in a vendor contract?,2,False
+Is a handwritten amendment to a signed contract still valid?,2,False
+What's the legal standard for defamation of a public figure?,2,False
+Find the clause in our vendor agreement that covers late delivery penalties.,2,True
+Where in the employee handbook does it describe the parental leave policy?,2,True
+Who owns the rule about approving discounts above twenty percent?,2,True
+Pull up the section of our contract that defines acceptable use.,2,True
+What does our internal policy say about accepting gifts from suppliers?,2,True
+Which team sets the rules for data retention periods here?,2,True
+I need the exact wording of the confidentiality clause in our standard MSA.,2,True
+Who should I talk to about the rules for exporting hardware to the EU?,2,True
+Where is the policy document that governs contractor onboarding?,2,True
+What is our stated policy on refunds after ninety days?,2,True
+Find the part of the terms of service that mentions arbitration.,2,True
+Which internal rule covers using customer data for model training?,2,True
+Who approves exceptions to the travel reimbursement policy?,2,True
+Show me the section of the SLA that defines uptime credits.,2,True
+What do the rules in our handbook say about remote work across state lines?,2,True
+My order shipped three days ago but the tracking hasn't updated.,3,False
+I was charged twice for the same subscription this month.,3,False
+How do I change the delivery address on an order I already placed?,3,False
+"The jacket I received is the wrong size, how do I exchange it?",3,False
+Can I cancel my order if it hasn't shipped yet?,3,False
+My promo code didn't apply at checkout.,3,False
+When will the blue version be back in stock?,3,False
+I never received the confirmation email for my purchase.,3,False
+How long do refunds usually take to show up on my card?,3,False
+"The package arrived damaged, what do I do?",3,False
+Can I pause my subscription for two months instead of cancelling it?,3,False
+I'd like to return an item but I've lost the receipt.,3,False
+Why was my acount charged after I cancelled?,3,False
+Is there a way to get a replacement part without buying the whole set?,3,False
+My member discount didn't come off the total.,3,False
+Can you resend the invoice for order 48213?,3,False
+How do I update the credit card on file?,3,False
+"The size chart doesn't match what I received, can you help?",3,False
+I ordered two but only one arrived in the box.,3,False
+Do you ship to Canada and how much does it cost?,3,False
+My delivery was marked delivered but nothing is at my door.,3,False
+Can I combine two orders into one shipment?,3,False
+How do I redeem the store credit I was issued?,3,False
+I want to speak to someone about a warranty claim.,3,False
+Why does my account say my membership expired when I just renewed?,3,False
+Can I change the color of the item I ordered this morning?,3,False
+The tracking number you sent doesn't work on the carrier site.,3,False
+I was told a refund was processed a week ago but I don't see it.,3,False
+How do I cancel auto renewal before the next billing date?,3,False
+Is there a restocking fee if I return an opened item?,3,False
+My gift card balance shows zero but I never used it.,3,False
+Do you price match if the item goes on sale right after I buy it?,3,False
+I need to update the name on my shipping label.,3,False
+What happens if I'm not home when the delivery arrives?,3,False
+Can I get an invoice that shows my company name for expensing?,3,False
+Are you even allowed to charge a restocking fee like that?,3,True
+Is it legal for you to keep my deposit after I cancelled?,3,True
+"Your site says no refunds after thirty days, is that actually enforceable?",3,True
+I get an error mesage every time I try to apply my coupon code.,3,True
+The checkout page keeps timing out when I hit submit.,3,True
+Your app crashes as soon as I open the order history tab.,3,True
+"I can't log into my account, it says my email isn't recognized.",3,True
+Is it legal to charge my card before the item has even shipped?,3,True
+The payment page shows a blank screen in Safari but works in Chrome.,3,True
+"You changed the return policy after I ordered, can you do that?",3,True
+"Your website charged me in the wrong currency, is that allowed?",3,True
+I keep getting a 403 error when I try to download my invoice.,3,True
+Am I entitled to a refund under your own terms or not?,3,True
+The two factor code never arrives when I try to sign in.,3,True
+"Your terms say delivery in five days and it's been three weeks, what are my rights here?",3,True

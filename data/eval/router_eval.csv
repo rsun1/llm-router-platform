@@ -1,0 +1,13 @@
+id,query,label,is_boundary,note
+1,Shouls I use list or dict for my use case here in python?,1,FALSE,
+2,How long does a patent protection period last in medication development?,2,FALSE,
+3,I saw you launched a discount deal today. Can I ask for a partial refund of my order I just placed yesterday?,3,FALSE,
+4,When is the last time France went into war with Italy?,0,FALSE,
+5,Help me generate a python script that tracks plane ticket pricing for the following route.,1,FALSE,
+6,Who to contact to ask about the rules on the process of roling out this feature for our D2 customers?,2,TRUE,"It is asking about the contact who understands the underlying rule; it should be part of ""legal"""
+7,I've been reading your return policy. Is it legal that you don't allow any return on the books sold from this website?,3,TRUE,"The tone and purpose for the answer is not to debate on legal terms, but to help customers solve issues."
+8,What year did Ombamacare policy come into effect?,0,FALSE,
+9,Would it be better if I download uv for my project? Why?,1,FALSE,
+10,When was the Lindsay Clancy case happened and when was the trial?,0,FALSE,
+11,"I keep getting 404 error on placing order webpage, what's going on?",3,TRUE,"It is a customer asking for help, not trying to solve a coding or system issue from technical perspective"
+12,Help me find the exact policy within company rulebook on D2 customer returns.,2,TRUE,"It is to find rules and terms, so it is legal"
