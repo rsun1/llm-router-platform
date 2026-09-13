@@ -52,3 +52,7 @@ performance tab.png
 Screenshot *.png
 screenshots/part7_flow.png
 screenshots/接口统一.png
+
+# ---- LoRA adapter 目录里的 tokenizer 和基座重复,不必进仓库 ----
+output/router_lora/tokenizer.json
+output/router_lora/chat_template.jinja

@@ -6,4 +6,5 @@ TEMPLATE =   '''\
     label:'''
 ROUTER_PROMPT_TEMPLATE = textwrap.dedent(TEMPLATE)
 
-print(repr(ROUTER_PROMPT_TEMPLATE.format(query='test')))
+if __name__ == '__main__':
+    print(repr(ROUTER_PROMPT_TEMPLATE.format(query='test')))

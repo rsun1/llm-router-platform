@@ -18,6 +18,7 @@ logging:
 router:
   default_model: mistral-7b
   routing_strategy: intelligent
+  classifier: lora #ollama | lora 
   models:
     gpt-4-turbo:
       provider: openai

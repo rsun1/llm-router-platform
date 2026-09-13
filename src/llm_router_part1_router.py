@@ -2,6 +2,9 @@ import os
 import yaml 
 from langchain_ollama import ChatOllama 
 from langchain_core.messages import HumanMessage
+from classify_lora import _classify_lora
+from router_prompt import DOMAIN_MAP
+
 
 configpath = os.path.join(os.path.dirname(os.path.dirname(__file__)),'config')
 
@@ -20,8 +23,7 @@ ALL_MODELS = ['gpt-4-turbo','claude-3.5-sonnet','mistral-7b','llama-3.1-70b']
 #     'code_generation': ['gpt-4-turbo', 'mistral-7b'],
 #     'analysis': ['claude-3.5-sonnet','llama-3.1-70b'],
 # }
-DOMAIN_MAP = {0:'general', 1:'code', 2:'legal',3:'customer_service'}
-
+CLASSIFIER = load_config()['router'].get('classifier','lora')
 def count_tokens(text):
     n_tokens = len(text)//4 
     return n_tokens
@@ -31,7 +33,7 @@ llm = ChatOllama(
     temperature=0,
     num_predict=5
 )
-def _classify_int(user_text):## this is for LoRA later
+def _classify_int(user_text):
     prompt = """
         Determine the type of user question: Only int values ​​can be output: 0general / 1code / 2legal / 3customer_service
         Respond with exactly one character: 0, 1,2 or 3. No explanation, no punctuation. 
@@ -72,7 +74,11 @@ def _classify_int(user_text):## this is for LoRA later
             return int(ch)
     return 0
 def classifyChat(user_text):
-    classify_int = _classify_int(user_text)
+    if CLASSIFIER == 'ollama' :
+        choose_model = _classify_int
+    elif CLASSIFIER == 'lora':
+        choose_model = _classify_lora
+    classify_int = choose_model(user_text)
     return DOMAIN_MAP[classify_int]
 
 
