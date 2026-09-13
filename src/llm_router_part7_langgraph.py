@@ -29,7 +29,6 @@ class RouteState(TypedDict):
     user_id: str 
     query_text: str 
     user_tier: str 
-    query_type: str
     token_count: int
     selected_model: str 
     classified_domain: str
@@ -47,18 +46,17 @@ class RouteState(TypedDict):
 def classify(state: RouteState):
     user_text = state['query_text']
     user_tier = state['user_tier']
-    query_type, domain, _, token_count = text_input(user_text, user_tier)
+    domain, _, token_count = text_input(user_text, user_tier)
     return {
-       'query_type': query_type,
        'classified_domain': domain,
        'token_count': token_count
     }
 
 def graph_select_model(state: RouteState):
-    query_type = state['query_type']
+    domain = state['classified_domain']
     user_tier = state['user_tier']
     token_count = state['token_count']
-    selected_model = select_model(query_type, user_tier,token_count)
+    selected_model = select_model(domain, user_tier,token_count)
     return {
         'selected_model': selected_model
     }
@@ -262,7 +260,7 @@ if __name__ == '__main__':
     # print('=========')
     # print(res['response'])  
     res = graph.invoke({
-        'query_text': 'Indoor cycling v.s. outdoor running, which is a better exercise for cardio?',
+        'query_text': 'Write a python function to reverse a string',
         'user_tier':'free',
         'user_id': 'user_202',
         'start_time': time.time()

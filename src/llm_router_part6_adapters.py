@@ -80,6 +80,12 @@ def rollback_adapter(adapter_id):
 
 
 if __name__ == "__main__":
-    register_adapter('mistral-7b','customer_service','v1')
-    register_adapter('mistral-7b','general','v1',0.1)
+    # register_adapter('mistral-7b','customer_service','v1')
+    # register_adapter('mistral-7b','general','v1',0.1)
+    register_adapter('mistral-7b', 'general', 'v1')
+    register_adapter('mistral-7b', 'code', 'v1')
+    register_adapter('mistral-7b', 'legal', 'v1')
+    register_adapter('mistral-7b', 'customer_service', 'v1')
+
     promote_adapter('mistral-7b-general-v1')
+    promote_adapter('mistral-7b-code-v1')

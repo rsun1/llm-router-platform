@@ -18,10 +18,6 @@ TIER_MODELS = {
 }
 ALL_MODELS = ['gpt-4-turbo','claude-3.5-sonnet','mistral-7b','llama-3.1-70b']
 
-# TYPE_MODELS = {
-#     'code_generation': ['gpt-4-turbo', 'mistral-7b'],
-#     'analysis': ['claude-3.5-sonnet','llama-3.1-70b'],
-# }
 CLASSIFIER = load_config()['router'].get('classifier','lora')
 def count_tokens(text):
     n_tokens = len(text)//4 
@@ -52,22 +48,6 @@ def _classify_int(user_text):
     """.format(query=user_text)
     res = llm.invoke([HumanMessage(content=prompt)]).content.strip()
     
-    # pos = res.content.find("Domain")
-    # first_part_query_type = res.content[:pos].strip().lower().strip('".') 
-    # second_part_domain_type = res.content[pos:].strip().lower().strip('".')     
-    
-    # classified = ['code_generation','analysis','general','summarization']
-    # domain = ['code','customer_service','general']
-    # result=['general','general']
-    
-    # for c in classified:
-    #     if c in first_part_query_type:
-    #         result[0] = c
-
-    # for d in domain:
-    #     if d in second_part_domain_type:
-    #         result[1] = d 
-    # return result
     for ch in res:
         if ch in '0123': 
             return int(ch)
@@ -89,15 +69,24 @@ def text_input(user_text,user_tier):
     token_count = count_tokens(user_text)
     return domain, user_tier, token_count
 
-def select_model(query_type, user_tier,token_count):
+def select_model(domain, user_tier,token_count):
     allowed_models = TIER_MODELS.get(user_tier, ALL_MODELS)
-    
-    if query_type == 'code_generation':
-        preferred_models = TYPE_MODELS['code_generation']
-    elif query_type == 'analysis' and token_count > 50000:
-        preferred_models = TYPE_MODELS['analysis']
-    else:
-        preferred_models = ALL_MODELS
+    rules = load_config()['router']['routing_rules']
+    preferred_models = ALL_MODELS
+    for rule in rules:
+        matched = True 
+        for key, value in rule['condition'].items():
+            if key == 'domain':
+                if domain != value:
+                    matched = False
+            elif key == 'min_tokens':
+                if token_count < value:
+                    matched = False 
+            else:
+                matched = False
+        if matched:
+            preferred_models = rule['models']
+            break
         
     candidates = []
     for model in allowed_models:
@@ -127,8 +116,8 @@ def pick_fallback_model(selected_model, user_tier):
     return chosen_model
    
 def route(user_text, user_tier):
-    query_type, domain, user_tier, token_count = text_input(user_text, user_tier)
-    selected_model = select_model(query_type, user_tier, token_count)
+    domain, user_tier, token_count = text_input(user_text, user_tier)
+    selected_model = select_model(domain, user_tier, token_count)
     return selected_model, domain
 
 
@@ -139,17 +128,22 @@ if __name__ == '__main__':
     # print(classifyChat('how to start learning AI for non tech users?'))
     # print(classifyChat('How should my team set up a patent review process?'))
     # print(classifyChat('Does a rabbit swim at all?'))
-    print(classifyChat('Shouls I use list or dict for my use case here in python?'))
-    print(classifyChat('How long does a patent protection period last in medication development?'))
-    print(classifyChat('I saw you launched a discount deal today. Can I ask for a partial refund of my order I just placed yesterday?'))
-    print(classifyChat('When is the last time France went into war with Italy?'))
+    # print(classifyChat('Shouls I use list or dict for my use case here in python?'))
+    # print(classifyChat('How long does a patent protection period last in medication development?'))
+    # print(classifyChat('I saw you launched a discount deal today. Can I ask for a partial refund of my order I just placed yesterday?'))
+    # print(classifyChat('When is the last time France went into war with Italy?'))
     
-    print(classifyChat('Help me generate a python script that tracks plane ticket pricing for the following route.'))
-    print(classifyChat('Who to contact to ask about the rules on the process of roling out this feature for our D2 customers?'))
-    print(classifyChat("I've been reading your return policy. Is it legal that you don't allow any return on the books sold from this website?"))
-    print(classifyChat('What year did Ombamacare policy come into effect?'))
+    # print(classifyChat('Help me generate a python script that tracks plane ticket pricing for the following route.'))
+    # print(classifyChat('Who to contact to ask about the rules on the process of roling out this feature for our D2 customers?'))
+    # print(classifyChat("I've been reading your return policy. Is it legal that you don't allow any return on the books sold from this website?"))
+    # print(classifyChat('What year did Ombamacare policy come into effect?'))
     
-    print(classifyChat('Would it be better if I download uv for my project? Why?'))
-    print(classifyChat('When was the Lindsay Clancy case happened and when was the trial?'))
-    print(classifyChat("I keep getting 404 error on placing order webpage, what's going on?"))
-    print(classifyChat('Help me find the exact policy within company rulebook on D2 customer returns.'))
+    # print(classifyChat('Would it be better if I download uv for my project? Why?'))
+    # print(classifyChat('When was the Lindsay Clancy case happened and when was the trial?'))
+    # print(classifyChat("I keep getting 404 error on placing order webpage, what's going on?"))
+    # print(classifyChat('Help me find the exact policy within company rulebook on D2 customer returns.'))
+    
+    
+    print(select_model('code', 'free', 100))        # 预期 mistral-7b
+    print(select_model('legal', 'premium', 100))    # 预期 gpt-4-turbo
+    print(select_model('general', 'free', 60000))   # 预期 mistral-7b(命中长文本规则但被 free 过滤)
