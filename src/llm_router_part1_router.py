@@ -2,7 +2,6 @@ import os
 import yaml 
 from langchain_ollama import ChatOllama 
 from langchain_core.messages import HumanMessage
-from classify_lora import _classify_lora
 from router_prompt import DOMAIN_MAP
 
 
@@ -77,7 +76,10 @@ def classifyChat(user_text):
     if CLASSIFIER == 'ollama' :
         choose_model = _classify_int
     elif CLASSIFIER == 'lora':
+        from classify_lora import _classify_lora
         choose_model = _classify_lora
+    else:
+        choose_model = _classify_int # 兜底
     classify_int = choose_model(user_text)
     return DOMAIN_MAP[classify_int]
 

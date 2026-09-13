@@ -15,7 +15,7 @@ tok = AutoTokenizer.from_pretrained(MODEL_NAME, trust_remote_code=True)
 def _classify_lora(user_text) ->int:
     prompt = ROUTER_PROMPT_TEMPLATE.format(query=user_text)
     inputs = tok(prompt, return_tensors='pt')
-    outputs = router_infer.generate(**inputs,max_new_tokens=8)
+    outputs = router_infer.generate(**inputs,max_new_tokens=8, do_sample=False)
     n = inputs['input_ids'].shape[1]
     text_out = tok.decode(outputs[0][n:],skip_special_tokens=True)
     

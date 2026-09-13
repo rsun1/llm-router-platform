@@ -38,18 +38,18 @@ def evaluate(classify_fn, csv_path=EVAL_PATH, verbose=True):
 
 if __name__ == '__main__':
     df_lora = evaluate(_classify_lora)
-    df_ollama = evaluate(_classify_int)
-    merged = pd.merge(df_ollama, df_lora, on='id', suffixes=('_ollama', '_lora'))
+   # df_ollama = evaluate(_classify_int)
+    # merged = pd.merge(df_ollama, df_lora, on='id', suffixes=('_ollama', '_lora'))
     
-    conditions = [
-      merged.ok_ollama & merged.ok_lora,
-      merged.ok_ollama & ~merged.ok_lora,
-      ~merged.ok_ollama & merged.ok_lora,
-    ]
-    choices = ['both', 'ollama', 'lora']
-    merged['winner'] = np.select(conditions, choices, default='neither')
+    # conditions = [
+    #   merged.ok_ollama & merged.ok_lora,
+    #   merged.ok_ollama & ~merged.ok_lora,
+    #   ~merged.ok_ollama & merged.ok_lora,
+    # ]
+    # choices = ['both', 'ollama', 'lora']
+    # merged['winner'] = np.select(conditions, choices, default='neither')
 
-    out = merged[['id', 'query_ollama', 'label_ollama', 'is_boundary_ollama',
-                'pred_ollama', 'pred_lora', 'winner']]
-    out.to_csv(SAVE_PATH, index=False)
+    # out = merged[['id', 'query_ollama', 'label_ollama', 'is_boundary_ollama',
+    #             'pred_ollama', 'pred_lora', 'winner']]
+    # out.to_csv(SAVE_PATH, index=False)
 

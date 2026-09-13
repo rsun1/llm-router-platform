@@ -18,7 +18,15 @@ logging:
 router:
   default_model: mistral-7b
   routing_strategy: intelligent
-  classifier: lora #ollama | lora 
+  classifier: lora #ollama | lora
+  domain_models:
+    general: [mistral-7b] 
+    code: [mistral-7b, gpt-4-turbo, llama-3.1-70b]
+    legal: [gpt-4-turbo, claude-3.5-sonnet]
+    customer_service: [gpt-4-turbo, claude-3.5-sonnet] #customer services can be long and tiring with reasoning, use gpt and claude
+  long_context:
+    threshold_tokens: 50000
+    models: [gpt-4-turbo, claude-3.5-sonnet, llama-3.1-70b]
   models:
     gpt-4-turbo:
       provider: openai
@@ -51,16 +59,19 @@ router:
       capabilities: [reasoning, coding, analysis]
       gpu_memory_gb: 80
   routing_rules:
-    - condition: "query_type == 'code_generation'"
-      models: [gpt-4-turbo, mistral-7b]
+    - condition: {domain: code} #"query_type == 'code_generation'"
+      models: [mistral-7b, llama-3.1-70b]
       fallback: mistral-7b
-    - condition: "analysis AND token_count > 50000"
-      models: [claude-3.5-sonnet, llama-3.1-70b]
+    - condition: {min_tokens: 50000} #"analysis AND token_count > 50000"
+      models: [claude-3.5-sonnet, gpt-4-turbo, llama-3.1-70b]
       fallback: llama-3.1-70b
-    - condition: "user_tier == 'premium'"
+    - condition: {domain: legal} # "user_tier == 'premium'"
       models: [gpt-4-turbo, claude-3.5-sonnet]
-      fallback: mistral-7b
-    - condition: "user_tier == 'free'"
+      fallback: claude-3.5-sonnet
+    - condition: {domain: customer_service}
+      models: [gpt-4-turbo, claude-3.5-sonnet]
+      fallback: claude-3.5-sonnet
+    - condition: {} #"user_tier == 'free'"
       models: [mistral-7b]
       fallback: mistral-7b
 
