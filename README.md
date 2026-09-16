@@ -35,10 +35,9 @@
 ### 1. 依赖
 
 ```bash
-pip install langgraph langchain-core langchain-ollama openai anthropic \
-            fastapi streamlit pandas plotly pydantic requests \
-            python-dotenv pyyaml tiktoken transformers cachetools
+pip install -r requirements.txt
 ```
+Windows/Linux 上默认装的可能是 CUDA 版(几个 G),没有显卡的话可以用 pip install  torch --index-url https://download.pytorch.org/whl/cpu 装 CPU 版
 
 ### 2. 本地模型（可选，但推荐）
 
@@ -58,7 +57,11 @@ cp .env.example .env   # 然后填入真实 key
 ```
 
 ### 4. 跑起来
-
+Adapter 已经包含在这个项目里。如果希望重新建一边，先走这个程序：
+```bash
+cd src && python llm_router_part6_adapters.py
+```
+然后依下面方式跑完全程：
 ```bash
 cd src && python llm_router_part7_langgraph.py   # 跑一次完整流程
 streamlit run streamlit_ui/app.py                # 监控看板
