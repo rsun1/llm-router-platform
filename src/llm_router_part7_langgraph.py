@@ -279,7 +279,7 @@ if __name__ == '__main__':
     # print('=========')
     # print(res['response'])  
     res = graph.invoke({
-        'query_text': 'Write a python function to reverse a string',
+        'query_text': 'How do I reverse a string in Python?',
         'user_tier':'free',
         'user_id': 'user_202',
         'start_time': time.time()
