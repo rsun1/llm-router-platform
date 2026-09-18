@@ -24,6 +24,9 @@ data/*
 logs/
 *.log
 
+!data/logs.csv
+!data/call_logs.csv
+
 # ---- 课件原件(老师提供,不对外发布) ----
 LLM_Project_all 2/
 *.zip

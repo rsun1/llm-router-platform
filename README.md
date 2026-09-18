@@ -71,6 +71,8 @@ cd src && python llm_router_part6_adapters.py
 然后依下面方式跑完全程：
 ```bash
 cd src && python llm_router_part7_langgraph.py   # 跑一次完整流程
+# 起 API 服务(User Requests 页需要它;其余六个报表页不需要)
+cd src && python -m uvicorn llm_router_part5_deploy:app --reload --port 8080
 streamlit run streamlit_ui/app.py                # 监控看板
 ```
 
@@ -302,9 +304,20 @@ v2 的改进来自一次**有假设的补数据**：先诊断出 legal 类里"�
 
 ## 截图
 
-见 `screenshots/`。
+见 `screenshots/`。其中两张是**接入真实运行日志之后**的看板：
+
+| 截图 | 内容 |
+|---|---|
+| `dashboard_model_performance_real.jpg` | 三个模型的请求数、成功率、平均延迟与成本对照 |
+| `dashboard_costs_real.jpg` | 成本分布饼图：gpt-4-turbo 占 98.4%，mistral-7b 1.63%，qwen2.5-0.5b 0% |
+
+成本饼图是分层路由策略最直接的证据：6 次走本地 qwen 的请求成本为 0，
+3 次走 gpt-4-turbo 的请求吃掉了 98.4% 的开销。
+
+> Overview 页的 Request Volume / Response Times 两张折线图目前是空的——
+> 仓库里的示例日志只有 12 条、且集中在同一个小时，按小时聚合后只剩单个数据点，
+> 折线画不出来。多跑一段时间的请求就会正常。
 
 ## 待完成
 
-- [ ] Streamlit 接真实运行数据(日志 schema 已补齐,剩看板侧接线)
 - [ ] `tests/`

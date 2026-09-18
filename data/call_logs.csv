@@ -1,0 +1,14 @@
+user_id,query_text,user_tier,selected_model,fallback_model,classified_domain,adapter_id,latency_ms,status,error_message,timestamp,sla_met,token_count_input,token_count_output,cost_usd,context_compressed,compression_ratio
+u_test,How do I reverse a string in Python?,free,qwen2.5-0.5b,,code,qwen2.5-0.5b-code-v1,7156.191110610962,success,,2026-09-17T21:04:59.034239,True,9,22,0.0,False,
+u_test, User is seeking assistance on how to reverse a string in Python.,free,qwen2.5-0.5b,,code,qwen2.5-0.5b-code-v1,62877.97021865845,success,,2026-09-17T21:06:01.924080,False,16,19,0.0,True,0.0067255149222362
+u_101,How do I add an index to a Postgres table?,free,qwen2.5-0.5b,,code,qwen2.5-0.5b-code-v1,11008.66413116455,success,,2026-09-17T21:12:22.235999,False,10,79,0.0,False,
+u_102,Is a verbal agreement legally binding?,free,qwen2.5-0.5b,,legal,qwen2.5-0.5b-legal-v1,3127.6257038116455,success,,2026-09-17T21:12:25.375826,True,9,62,0.0,False,
+u_103,"My order never arrived, what should I do?",free,mistral-7b,,customer_service,,47202.16631889343,success,,2026-09-17T21:13:12.590022,False,10,382,0.000392,False,
+u_104,Who painted the ceiling of the Sistine Chapel?,free,mistral-7b,,general,mistral-7b-general-v1,13705.994129180908,success,,2026-09-17T21:13:26.317577,False,11,95,0.000106,False,
+u_105,What is fair use in copyright law?,free,qwen2.5-0.5b,,legal,qwen2.5-0.5b-legal-v1,3936.715602874756,success,,2026-09-17T21:13:30.276973,True,8,41,0.0,False,
+u_106,How do I mock a network call in a unit test?,free,qwen2.5-0.5b,,code,qwen2.5-0.5b-code-v1,5723.990201950073,success,,2026-09-17T21:13:36.031775,True,11,56,0.0,False,
+u_201,What are the legal requirements for a valid will?,premium,gpt-4-turbo,,legal,,26515.952110290527,success,,2026-09-17T21:19:00.242137,False,12,754,0.02298,False,
+u_202,I was charged twice for my subscription this month.,premium,gpt-4-turbo,,customer_service,,13467.902183532715,success,,2026-09-17T21:19:13.733506,False,12,479,0.01473,False,
+u_203,How do I structure a Python project with multiple entry points?,enterprise,mistral-7b,,code,mistral-7b-code-v1,80580.8277130127,success,,2026-09-17T21:20:34.363116,False,15,467,0.00048199999999999995,False,
+u_204,Can a non-compete clause be enforced in Massachusetts?,enterprise,gpt-4-turbo,,legal,,16473.512649536133,success,,2026-09-17T21:20:50.858146,False,13,702,0.02145,False,
+user_301,how to start learning english as a japanese?,premium,gpt-4-turbo,,general,,27634.249925613403,success,,2026-09-17T21:31:55.241796,False,11,766,0.02331,False,

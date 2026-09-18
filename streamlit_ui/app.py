@@ -25,12 +25,12 @@ def load_data():
         data['query_id'] = data.index                     
         data['query_type'] = data['classified_domain']    
         data['cached_response'] = False                   
-        return data 
+        return data , True
     else:
         sample_log = os.path.join(datapath, 'logs.csv')
         data = pd.DataFrame(pd.read_csv(sample_log))
         data["timestamp"] = pd.to_datetime(data["timestamp"])                  
-        return data 
+        return data , False
 
     
    
@@ -50,7 +50,10 @@ st.set_page_config(
 def sidebar():
     with st.sidebar:
         st.header('Navigation')
-        
+        if is_real:
+            st.caption(f'source of data: real live data · total of {len(data_logs)} records')
+        else:
+            st.caption('source of data: sample data; real live data does not exist yet.')
         
         selected_page = st.radio(
             'Navigation',
@@ -65,7 +68,7 @@ def sidebar():
     st.write("Version: v1.1")    
     
 
-data_logs = load_data()
+data_logs, is_real = load_data()
 def compute_overview_metrics(data_logs):
     total_requests = data_logs["query_id"].nunique()
     avg_response = data_logs["latency_ms"].mean()
