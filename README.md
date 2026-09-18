@@ -104,6 +104,7 @@ premium / enterprise 档会路由到 gpt-4-turbo / claude,没有配 .env 时会�
 - base vs adapter 的对比(那段降薪的回答)
 - 只用了20 条数据，刻意过拟合（epoch = 12）。
 - 演示机制不是灌知识，不具备真正提供 legal 之类的回答。
+- 一共3个domain，我只训练了 legal 和 code。没训练 customer_service
 
 #### 5. 与课件参考的出入
 课件 `Lora/` 下三个脚本是这条流程的参考实现。照着跑通的过程中发现四个问题，

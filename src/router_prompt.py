@@ -10,6 +10,14 @@ ANSWER_TEMPLATE = '''\
     User Question: {query}\nAnswer:'''
 ANSWER_PROMPT_TEMPLATE = textwrap.dedent(ANSWER_TEMPLATE)
 
+COMPRESS_TEMPLATE = '''\
+    Compress the following question from user into core information within
+    one to two sentences. Keep all details and constraints, and only
+    output the question compressed.
+    
+    Question: {query}
+    Compress:'''
+COMPRESS_PROMPT_TEMPLATE = textwrap.dedent(COMPRESS_TEMPLATE)
 
 if __name__ == '__main__':
     print(repr(ROUTER_PROMPT_TEMPLATE.format(query='test')))

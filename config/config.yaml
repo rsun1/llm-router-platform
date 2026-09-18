@@ -94,9 +94,9 @@ inference:
     max_retries: 3
   compression:
     enabled: true
-    max_context_tokens: 100000
+    max_context_tokens: 2000 #100000
     compression_ratio: 0.3
-    method: semantic_graph
+    method: llm_summarize #semantic_graph
   cache:
     enabled: true
     backend: redis

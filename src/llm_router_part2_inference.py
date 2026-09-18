@@ -6,7 +6,7 @@ from langchain_core.messages import HumanMessage
 from openai import OpenAI
 from anthropic import Anthropic
 from utils.token_tools import count_messages_tokens, check_context_valid, predict_completion_tokens
-from router_prompt import ANSWER_PROMPT_TEMPLATE
+from router_prompt import ANSWER_PROMPT_TEMPLATE, COMPRESS_PROMPT_TEMPLATE
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from peft import PeftModel
 import torch
@@ -75,6 +75,10 @@ def _generate_local(user_text, domain=None):
             outputs = model.generate(**inputs,max_new_tokens=150, do_sample=False)
     n=inputs['input_ids'].shape[1]
     return tok.decode(outputs[0][n:],skip_special_tokens=True).strip()
+
+def compress_text(user_text):
+    prompt = COMPRESS_PROMPT_TEMPLATE.format(query=user_text)
+    return call_ollama('mistral-7b', prompt)
 
 def call_local_peft(user_text, adapter_id = None):
     domain = None 
@@ -151,4 +155,6 @@ if __name__ == '__main__':
     # print(call_local_peft(q, None))                    # 纯基座
     # print(call_local_peft(q, 'mistral-7b-legal-v1'))   # registry 里有 → domain=legal → 挂法律适配器
     # print(call_local_peft(q, 'no-such-adapter'))
-    pass
+    long_q = "I need help. " * 200 + "How do I reverse a string in Python?"
+    print(compress_text(long_q))
+    #pass

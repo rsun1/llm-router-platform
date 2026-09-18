@@ -1,7 +1,7 @@
 from langgraph.graph import StateGraph, END
 from typing import TypedDict, Literal 
-from llm_router_part1_router import text_input, select_model, pick_fallback_model
-from llm_router_part2_inference import call_model, TOKEN_MODEL_MAP, check_cost
+from llm_router_part1_router import text_input, select_model, pick_fallback_model, count_tokens
+from llm_router_part2_inference import call_model, TOKEN_MODEL_MAP, check_cost, compress_text
 from utils.token_tools import count_messages_tokens
 import os 
 import pandas as pd
@@ -42,6 +42,7 @@ class RouteState(TypedDict):
     start_time: float
     check_passed: bool
     fallback_model: str
+    original_tokens: int
 
 def classify(state: RouteState):
     user_text = state['query_text']
@@ -79,7 +80,22 @@ def graph_call_model(state: RouteState):
         'status': status ,
         'error_message': error_message
     }
+def graph_compress(state: RouteState):
+    config = load_config()
+    token_count = count_tokens(state['query_text'])       
+    threshold = config['inference']['compression']['max_context_tokens']
+    enabled = config['inference']['compression']['enabled']
 
+    if not enabled or token_count <= threshold:
+        return {}          
+    else: 
+        compressed = compress_text(state['query_text'])
+        return {
+            'query_text': compressed, 
+            'original_tokens': token_count
+            }
+    
+    
 def graph_record(state: RouteState):
     latency_ms = (time.time() - state['start_time'])*1000
     timestamp = datetime.now().isoformat()
@@ -192,6 +208,7 @@ def router_fallback(state: RouteState):
         return 'recordNode'
 
 workflow = StateGraph(RouteState)
+workflow.add_node('compress', graph_compress)
 workflow.add_node('classify', classify)
 workflow.add_node('select_model', graph_select_model)
 workflow.add_node('call_model', graph_call_model)
@@ -208,7 +225,7 @@ workflow.add_conditional_edges(
     'check_quota',
     router_fn, {
         'rejectNode': 'reject',
-        'modelNode': 'classify'
+        'modelNode': 'compress'
     }
 )
 workflow.add_conditional_edges(
@@ -235,6 +252,7 @@ workflow.add_conditional_edges(
 )
 
 workflow.add_edge('reject','record')
+workflow.add_edge('compress','classify')
 workflow.add_edge('classify', 'select_model')
 workflow.add_edge('select_model','check_breaker')
 workflow.add_edge('select_adapter','call_model')
