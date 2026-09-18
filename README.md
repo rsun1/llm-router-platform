@@ -76,6 +76,10 @@ streamlit run streamlit_ui/app.py                # 监控看板
 
 运行日志写到 `data/call_logs.csv`（首次运行自动创建，已 gitignore）。
 
+零配置演示:user_tier='free' + 代码或法律类问题,这条路径完全本地。首次运行自动下载 Qwen2.5-0.5B(约 1GB),不需要 ollama,也不需要 API key。
+其它情况:free 档的其它问题走 mistral-7b,需要装 ollama;
+premium / enterprise 档会路由到 gpt-4-turbo / claude,没有配 .env 时会按设计走降级链,最终记为 error——这是预期行为,不是故障。
+
 ---
 
 ## 设计说明
@@ -173,7 +177,26 @@ generate() 返回的是输入 + 新生成拼接后的完整序列，所以 `outp
 所以我改成基础模型只加载一次，切换领域时用 set_adapter() 换适配器。PEFT 支持在同一个基座上挂载多个适配器。本项目的 classify_lora.py
 已经采用模块级加载（只加载一次），后续接入回答适配器时会沿用同一思路。
 
-### 策略检查为什么放在 classify 之前
+#### 6. 分层 routing 策略：
+- 免费用户用本地的 Qwen2.5-0.5B 加 adapter，零成本。
+- 付费用户用 GPT-4 或者 Claude。
+
+#### 7. 端到端完成例子：
+``` 
+ Q: How do I reverse a string in Python?
+     domain  : code                      ← 自训 LoRA 分类器
+     model   : qwen2.5-0.5b              ← config 规则 + tier 过滤 + priority
+     adapter : qwen2.5-0.5b-code-v1      ← registry 查到
+     answer  : Use the `[::-1]` slicing technique... It works on any iterable
+                                         ← 训练数据里那条答案的风格
+
+  Q: Can my employer reduce my salary without telling me first?
+     domain  : legal
+     adapter : qwen2.5-0.5b-legal-v1
+     answer  : Most companies must give notice... This is general information and not legal advice.
+                                         ← 免责声明 ✅
+```
+### Quota/Cost 检查为什么放在 classify 之前
 这样可以先看是否需要停止、拦截请求，使得 latency 大减，同时不浪费 token 和金钱。
 
 ### fallback 的三个设计决策
