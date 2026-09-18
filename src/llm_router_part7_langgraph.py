@@ -103,6 +103,16 @@ def graph_record(state: RouteState):
     user_tier = state['user_tier']
     sla_limit = config["policies"]["latency_slas"][user_tier]
     sla_met = latency_ms <= sla_limit
+    response = state.get('response')
+    token_count_output = count_tokens(response) if response else 0
+    selected_model = state.get('selected_model')
+    token_count_input = count_tokens(state['query_text'])
+    if selected_model:
+      cost_per_token = config['router']['models'][selected_model]['cost_per_token']
+      cost_usd = (token_count_input + token_count_output) * cost_per_token
+    else:
+      cost_usd = 0.0
+    original = state.get('original_tokens') 
     session = {
             'user_id': state['user_id'],
             'query_text': state['query_text'],
@@ -115,7 +125,12 @@ def graph_record(state: RouteState):
             'status': state['status'],
             'error_message': state['error_message'],
             'timestamp': timestamp,
-            'sla_met': sla_met
+            'sla_met': sla_met,
+            'token_count_input': token_count_input,
+            'token_count_output': token_count_output,    
+            'cost_usd': cost_usd,
+            'context_compressed': original is not None ,
+            'compression_ratio' : token_count_input/original if original else None
         }
     save_session(session)
     return {
