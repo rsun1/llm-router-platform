@@ -15,10 +15,25 @@ configpath = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config')
 
 @st.cache_data
 def load_data():
-    log = os.path.join(datapath, 'logs.csv')
-    data = pd.DataFrame(pd.read_csv(log))
-    data["timestamp"] = pd.to_datetime(data["timestamp"])
-    return data 
+    log = os.path.join(datapath, 'call_logs.csv')
+    
+    file_exists = os.path.exists(log)
+    
+    if file_exists:
+        data = pd.DataFrame(pd.read_csv(log))
+        data["timestamp"] = pd.to_datetime(data["timestamp"])
+        data['query_id'] = data.index                     
+        data['query_type'] = data['classified_domain']    
+        data['cached_response'] = False                   
+        return data 
+    else:
+        sample_log = os.path.join(datapath, 'logs.csv')
+        data = pd.DataFrame(pd.read_csv(sample_log))
+        data["timestamp"] = pd.to_datetime(data["timestamp"])                  
+        return data 
+
+    
+   
 
 def load_config():
     config = os.path.join(configpath, 'config.yaml')
