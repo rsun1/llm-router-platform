@@ -50,18 +50,25 @@ router:
       priority: 4
       capabilities: [reasoning, coding, analysis]
       gpu_memory_gb: 80
+    qwen2.5-0.5b:
+        provider: local_peft
+        model_path: Qwen/Qwen2.5-0.5B-Instruct
+        max_tokens: 32768
+        cost_per_token: 0.0
+        priority: 0
+        capabilities: [general, coding]
   routing_rules:
     - condition: {min_tokens: 50000} #"analysis AND token_count > 50000"
       models: [claude-3.5-sonnet, gpt-4-turbo, llama-3.1-70b]
       fallback: llama-3.1-70b
     - condition: {domain: code} #"query_type == 'code_generation'"
-      models: [mistral-7b, llama-3.1-70b]
+      models: [mistral-7b, llama-3.1-70b, qwen2.5-0.5b]
       fallback: mistral-7b
     - condition: {domain: legal} # "user_tier == 'premium'"
-      models: [gpt-4-turbo, claude-3.5-sonnet]
+      models: [gpt-4-turbo, claude-3.5-sonnet,qwen2.5-0.5b]
       fallback: claude-3.5-sonnet
     - condition: {domain: customer_service}
-      models: [gpt-4-turbo, claude-3.5-sonnet]
+      models: [gpt-4-turbo, claude-3.5-sonnet,mistral-7b]
       fallback: claude-3.5-sonnet
     - condition: {} #"user_tier == 'free'"
       models: [mistral-7b]

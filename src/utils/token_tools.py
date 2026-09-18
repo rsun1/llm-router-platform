@@ -22,6 +22,7 @@ MODEL_TO_TOKENIZER_HF_PATH: Dict[str, str] = {
     "llama3:8b": "meta-llama/Llama-3-8B-Instruct",
     "qwen2:7b": "Qwen/Qwen2-7B-Instruct",
     "mistral:7b": "mistralai/Mistral-7B-Instruct-v0.3",
+    "qwen2.5-0.5b": "Qwen/Qwen2.5-0.5B-Instruct"
 }
 
 # 模型上下文窗口上限，用于路由预检
@@ -32,6 +33,7 @@ MODEL_MAX_CONTEXT_WINDOW: Dict[str, int] = {
     "mistral:7b": 32768,
     "gpt-3.5-turbo": 16384,
     "gpt-4o": 128000,
+    "qwen2.5-0.5b": 32768
 }
 
 # ===================== 全局缓存 =====================
@@ -65,7 +67,8 @@ def _get_cached_fast_tokenizer(model_alias: str) -> Optional[PreTrainedTokenizer
         _TOKENIZER_CACHE[model_alias] = tokenizer
         return tokenizer
     except Exception as e:
-        logger.exception(f"load tokenizer {hf_path} failed", exc_info=e)
+        logger.warning(f"load tokenizer {hf_path} failed, {e}")
+        _TOKENIZER_CACHE[model_alias] = None       
         return None
 
 

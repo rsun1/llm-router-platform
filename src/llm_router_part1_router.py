@@ -13,7 +13,7 @@ def load_config():
         return yaml.safe_load(f)
 
 TIER_MODELS = {
-    'free': ['mistral-7b'],
+    'free': ['mistral-7b','qwen2.5-0.5b'],
     'premium': ['gpt-4-turbo','claude-3.5-sonnet']
 }
 ALL_MODELS = ['gpt-4-turbo','claude-3.5-sonnet','mistral-7b','llama-3.1-70b']

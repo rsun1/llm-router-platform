@@ -65,8 +65,9 @@ def graph_call_model(state: RouteState):
     selected_model = state['selected_model']
     user_text = state['query_text']
     user_tier = state['user_tier']
+    adapter_id = state['adapter_id']
     try:
-        response = call_model(selected_model,user_text,user_tier)
+        response = call_model(selected_model,user_text,user_tier,adapter_id)
         status = 'success'
         error_message = None
     except Exception as e: 
